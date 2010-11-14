@@ -62,3 +62,11 @@ http://www.corvidworks.com/projects/asset-helper/
 
 
 
+License
+-------------------
+
+This code is released under the terms of the [MIT License](http://www.opensource.org/licenses/mit-license.php) and is free to use and redistribute for any purpose. If you find this code helpful, a link back to [Corvid Works](http://www.corvidworks.com/) would be cool, but it’s not required.
+
+
+
+
