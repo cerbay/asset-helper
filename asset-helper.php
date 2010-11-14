@@ -33,12 +33,18 @@ function stylesheet_tag()
 	}
 	$num_args = func_num_args();
 	$files = array();
+	$media = 'all';
 	if (($num_args === 0) && (isSet($default))) {
 		$files[] = $default;
 	} else {
 		for ($i = 0; $i < $num_args; $i++) {
 			$arg = func_get_arg($i);
-			if ((is_string($arg)) && (!empty($arg))) {
+			if (is_array($arg)) {
+				if (array_key_exists('media', $arg)) {
+					$media = $arg['media'];
+					unset($arg['media']);
+				}
+			} elseif ((is_string($arg)) && (!empty($arg))) {
 				$files[] = $arg;
 			}
 		}
@@ -51,7 +57,7 @@ function stylesheet_tag()
 			$file = $file . '.css';
 		}
 		$path = get_path($file, 'css');
-		print "<link rel='stylesheet' href='${path}' type='text/css' />\n";
+		print "<link rel='stylesheet' href='${path}' type='text/css' media='${media}' />\n";
 	}
 }
 
@@ -168,7 +174,18 @@ function get_file_subdir($type)
 	global $asset_helper_subdir;
 	$defaults = array('css' => '/css', 'js' => '/js', 'img' => '/images');
 	// Is this directory overridden?
- 	return (isSet($asset_helper_subdir[$type])) ? $asset_helper_subdir[$type] : $defaults[$type];
+	if (isSet($asset_helper_subdir[$type])) {
+		$subdir = $asset_helper_subdir[$type];
+	} else {
+		// WordPress standard is to keep CSS in the theme directory,
+		// so let's go with that unless a subdirectory is specified.
+		if (($type == 'css') && (is_wordpress())) {
+			$subdir = '';
+		} else {
+			$subdir = $defaults[$type];
+		}
+	}
+	return $subdir;
 }
 
 /**
@@ -182,7 +199,7 @@ function asset_timestamp($fs_path)
 	if (file_exists($fs_path)) {
 		return '?' . filemtime($fs_path);
 	} else {
-		return $fs_path;
+		return '';
 	}
 }
 
@@ -216,7 +233,7 @@ function asset_host_url($file, $type)
 		$host = $asset_host;
 	}
 	// Assemble and return complete file URL
-	$protocol = (is_ssl()) ? 'https' : 'http';
+	$protocol = (use_ssl()) ? 'https' : 'http';
 	return "${protocol}://${host}${file}";
 }
 
@@ -235,7 +252,7 @@ function is_wordpress()
  * 
  * @return  boolean    True if this page is accessed via SSL, otherwise false
  */
-function is_ssl()
+function use_ssl()
 {
 	return ((isSet($_SERVER['HTTPS'])) && ($_SERVER['HTTPS'] == 'on'));
 }
