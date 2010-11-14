@@ -177,9 +177,9 @@ function get_file_subdir($type)
 	if (isSet($asset_helper_subdir[$type])) {
 		$subdir = $asset_helper_subdir[$type];
 	} else {
-		// WordPress standard is to keep CSS in the theme directory,
+		// WordPress standard is to keep CSS/JS in the theme directory,
 		// so let's go with that unless a subdirectory is specified.
-		if (($type == 'css') && (is_wordpress())) {
+		if ((is_wordpress()) && ($type != 'img')) {
 			$subdir = '';
 		} else {
 			$subdir = $defaults[$type];
