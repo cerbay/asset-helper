@@ -2,8 +2,10 @@ Asset Helper
 ========================================
 
 Author: Kenn Wilson
-Author URL: http://www.corvidworks.com/
-Project URL: http://www.corvidworks.com/projects/asset-helper/
+
+Author URL: [http://www.corvidworks.com/](http://www.corvidworks.com/)
+
+Project URL: [http://www.corvidworks.com/projects/asset-helper/](http://www.corvidworks.com/projects/asset-helper/)
 
 
 Asset Helper brings Rails-style asset helper functions to PHP sites. Includes support for static asset hosts and timestamped query strings.
@@ -55,11 +57,12 @@ Documentation
 -------------------
 
 More information can be found at:
-http://www.corvidworks.com/articles/asset-helper/
+
+[http://www.corvidworks.com/articles/asset-helper/](http://www.corvidworks.com/articles/asset-helper/)
 
 Complete documentation can be found at:
-http://www.corvidworks.com/projects/asset-helper/
 
+[http://www.corvidworks.com/projects/asset-helper/](http://www.corvidworks.com/projects/asset-helper/)
 
 
 License
